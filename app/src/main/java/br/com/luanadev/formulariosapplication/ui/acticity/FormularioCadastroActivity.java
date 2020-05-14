@@ -1,10 +1,11 @@
 package br.com.luanadev.formulariosapplication.ui.acticity;
 
-import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.material.textfield.TextInputLayout;
 
@@ -25,31 +26,31 @@ public class FormularioCadastroActivity extends AppCompatActivity {
 
         initView();
 
-        EditText campoNome = textNome.getEditText();
-        validaCampo(campoNome);
-        EditText campoCPF = textCpf.getEditText();
-        validaCampo(campoCPF);
-        EditText campoTelefone = textTelefone.getEditText();
-        validaCampo(campoTelefone);
-        EditText campoEmail = textEmail.getEditText();
-        validaCampo(campoEmail);
-        EditText campoSenha= textSenha.getEditText();
-        validaCampo(campoSenha);
+        validaCampo(textNome);
+        validaCampo(textCpf);
+        validaCampo(textTelefone);
+        validaCampo(textTelefone);
+        validaCampo(textSenha);
 
 
     }
 
-    private void validaCampo(final EditText campo) {
+    private void validaCampo(final TextInputLayout textCampo){
+        final EditText campo = textCampo.getEditText();
         campo.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
                 String texto = campo.getText().toString();
-                if (texto.isEmpty()) {
-                    campo.setError("Campo Obrigatorio");
+                if (!hasFocus && texto.isEmpty()) {
+                    textCampo.setError("Campo Obrigatorio");
+                }else {
+                    textCampo.setError(null);
+                    textCampo.setErrorEnabled(false);
                 }
             }
         });
     }
+
 
     private void initView() {
         textNome = findViewById(R.id.text_nome_completo);
